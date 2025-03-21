@@ -1,6 +1,4 @@
-local system = System({
-    pool = {"position", "velocity"}
-})
+local system = System()
 
 local keys = {
     up = { "w", "up", "kp8" },
@@ -46,18 +44,17 @@ local function tryMoving(entity, x, y)
 end
 
 function system:keypressed(_key, scancode, _isrepeat)
-    for _, e in ipairs(self.pool) do
-        if contains(keys.up, scancode) then
-            tryMoving(e, 0, -1)
-        elseif contains(keys.down, scancode) then
-            tryMoving(e, 0, 1)
-        elseif contains(keys.left, scancode) then
-            tryMoving(e, -1, 0)
-        elseif contains(keys.right, scancode) then
-            tryMoving(e, 1, 0)
-        elseif scancode == "escape" then
-            CurrentWorld = Worlds.titleMenu
-        end
+    local e = Entities.player
+    if contains(keys.up, scancode) then
+        tryMoving(e, 0, -1)
+    elseif contains(keys.down, scancode) then
+        tryMoving(e, 0, 1)
+    elseif contains(keys.left, scancode) then
+        tryMoving(e, -1, 0)
+    elseif contains(keys.right, scancode) then
+        tryMoving(e, 1, 0)
+    elseif scancode == "escape" then
+        CurrentWorld = Worlds.titleMenu
     end
 end
 
